@@ -1,93 +1,221 @@
-import { useState } from 'react'
-import './Signup.css'
-import Logo from './assets/logo.png'
-import { Link } from 'react-router-dom'
-import SignupImg from './assets/signup.png'
+import { useState } from "react";
+import {Link, useNavigate} from 'react-router-dom'
+import {
+  Grid,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { Email, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import signupImg from "./assets/signup.png";
+import logoImg from "./assets/logo.png";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
-function Signup() {
-  const [register,setRegister] = useState({
-    "firstName":" ",
-    "lastName":"",
-    "email":"",
-    "password":"",
-    "confirmPassword":"",
-  })
+const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(register)
-  }
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   return (
     <>
-    <div className="parent">
-      <div className='signup'>
-        <div className="header">
-        <img src={Logo} alt="" className='logo'/>
-        <h1>Farm Cart Organic</h1>
-        </div>
-        <form action="" className='signupForm' onSubmit={handleSubmit}>
-        <h2>Create an account</h2>
-        
-        <label htmlFor="firstName">First Name
-        </label>
-        <input type="text" name="firstName" id="" 
-        value={register.firstName} required 
-        onChange={(e) => setRegister({...register,firstName :e.target.value})}
-        /> 
-        
-        <label htmlFor="lastName">Last Name
-        </label>
-        <input type="text" name="lastName" id="" 
-        value={register.lastName} required
-        onChange={(e) => setRegister({...register, lastName: e.target.value})}
-        />
+      <Grid
+        container
+        sx={{ flexDirection: { xs: "column-reverse", sm: "row" } }}
+      >
+        <Grid item xs={12} sm={6}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ minHeight: { xs: "50vh", sm: "100vh" } }}
+          >
+            {/* Sign Up Form */}
+            <Box
+              component="form"
+              sx={{ width: { xs: "90%", sm: "80%" }, maxWidth: 400 }}
+            >
+              <Box display="flex" alignItems="center" mb={2}>
+                <Box mr={2}>
+                  <img src={logoImg} alt="Farm Cart Organic" height="50" />
+                </Box>
+                <Typography variant="h5">Farm Cart Organic</Typography>
+              </Box>
+              <Typography variant="h6" mb={2}>
+                Create an Account
+              </Typography>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="First Name"
+                variant="outlined"
+                size = "small"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton edge="start">
+                      <AccountCircleIcon />
+                    </IconButton>
+                  ),
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Last Name"
+                variant="outlined"
+                size = "small"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton edge="start">
+                      <AccountCircleIcon />
+                    </IconButton>
+                  ),
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Email"
+                variant="outlined"
+                size = "small"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton edge="start">
+                      <Email />
+                    </IconButton>
+                  ),
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Password"
+                size = "small"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton edge="start">
+                      <Lock />
+                    </IconButton>
+                  ),
+                  endAdornment: (
+                    <IconButton edge="end" onClick={handleShowPassword}>
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Confirm Password"
+                size = "small"
+                type={showConfirmPassword ? "text" : "password"}
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton edge="start">
+                      <Lock />
+                    </IconButton>
+                  ),
+                  endAdornment: (
+                    <IconButton edge="end" onClick={handleShowConfirmPassword}>
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="I agree to terms and privacy"
+                sx={{ mt: 1 }}
+              />
+              <Box
+                display="flex"
+                mt={2}
+                sx={{ gap: "1rem", flexDirection: "column" }}
+              >
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  mt={2}
+                  sx = {{
+                    backgroundColor: "#FFC300",
+                        "&:hover": {
+                          backgroundColor: "#FFA500"
+                        }
+                    }}
+                >
+                  Sign Up
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  mt={2}
+                  sx={{ 
+                    backgroundColor: "#fff", color: "#000",
+                    "&:hover": { backgroundColor: "azure" }
+                    }}
+                >
+                  <GoogleIcon style={{ marginRight: "10px" }} />
+                  Sign Up with Google
+                </Button>
 
-        <label htmlFor="email">Email
-        </label>
-        <input type="email" name="email" id="" 
-        value={register.email} required
-        onChange={(e) => setRegister({...register,email:e.target.value})}
-        />
-
-        <label htmlFor="password">Password
-        </label>
-        <input type="password" name="password" id="" 
-        value={register.password} required
-        onChange={(e) => setRegister({...register,password: e.target.value})}
-        />
-
-        <label htmlFor="confirmPassword">Confirm Password
-        </label>
-        <input type="password" name="confirmPassword" id="" 
-        value={register.confirmPassword} required
-        onChange={(e) => setRegister({...register,confirmPassword: e.target.value})}
-        />
-        <div className="check-box">
-        <input type="checkbox" name="" id="terms-check" /> <p>I agree with terms and privacy</p>
-        </div>
-        <input type="submit" value="Sign Up" id='submitBtn'
-        />
-        <input type="button" value="Sign Up with Google" id='submitBtn'
-        />
-        <input type="button" value="Sign Up with Facebook" id='submitBtn'
-        />
-
-        <span>Already a user? 
-          {<Link to='/login' style={{ textDecoration: 'none' }}> Login here</Link>}
-          {/* <input type="button" value='Login' id='goToLogin'/> */}
-          </span>
-        </form>
-      </div>
-
-      <div className="split">
-        <div className="centered">
-          <img src={SignupImg} alt="" className='signup-img'/>
-        </div>
-      </div>
-    </div>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  mt={2}
+                  sx={{ backgroundColor: "#3b5998", color: "#fff" }}
+                >
+                  <FacebookIcon style={{ marginRight: "10px" }} />
+                  Sign Up with Facebook
+                </Button>
+              </Box>
+              <Box mt = {5} sx = {{textAlign:"center"}}>
+              <Typography variant="body1" mt={2} >
+                Already a user? <Link to='./login' style={{ textDecoration: 'none' }}>Login</Link>
+              </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Box
+            component="img"
+            src={signupImg}
+            alt="Right side image"
+            sx={{
+              width: "100%",
+              height: { xs: "50vh", sm: "100%" },
+              objectFit: "contain",
+              objectPosition: "center",
+              position: "relative",
+              backgroundColor: "#FFC300"
+            }}
+          />
+        </Grid>
+      </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
