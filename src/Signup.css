@@ -85,3 +85,19 @@ input {
     border-radius: 5.91319px;
 }
     
+
+
+
+.check-box {
+    display: flex;
+    margin: 1rem 0;
+    align-items: center;
+
+  
+  #terms-check {
+    width: 30px;
+    margin-right: 20px;
+    padding: 5px;
+    height: 20px;
+  }
+}

@@ -63,9 +63,12 @@ function Signup() {
         value={register.confirmPassword} required
         onChange={(e) => setRegister({...register,confirmPassword: e.target.value})}
         />
+        
         <div className="check-box">
-        <input type="checkbox" name="" id="terms-check" /> <p>I agree with terms and privacy</p>
+        <input type="checkbox" name="" id="terms-check" /> 
+        <p>I agree with terms and privacy</p>
         </div>
+        
         <input type="submit" value="Sign Up" id='submitBtn'
         />
         <input type="button" value="Sign Up with Google" id='submitBtn'
